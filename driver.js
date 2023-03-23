@@ -26,6 +26,3 @@ console.log(`levelorder: ${binaryTree.levelOrder}`);
 console.log(`inorder: ${binaryTree.inorder}`);
 console.log(`preorder: ${binaryTree.preorder}`);
 console.log(`postorder: ${binaryTree.postorder}`);
-
-
-
