@@ -22,7 +22,7 @@ class Tree {
     insert(node, key) {
         if (node === null) {
             node = new Node(key);
-            return value;
+            return node;
         }
 
         if (key < node.key) {
@@ -114,5 +114,74 @@ class Tree {
     }
 
     inorder(callback, node = this.root, output = []) {
-        if (node === null)
+        if (node === null) return;
+
+        if (callback) {
+            callback(node);
+        }
+        this.inorder(node.left);
+        output.push(node.key);
+        this.preorder(node.right);
+        return output;
     }
+
+    postorder(callback, node = this.root, output = []) {
+        if (node === null) return;
+
+        if (callback) {
+            callback(node);
+        }
+        this.inorder(node.left);
+        this.preorder(node.right);
+        output.push(node.key);
+        return output;
+    }
+
+    height(node) {
+        if (node === null) {
+            return -1;
+        }
+
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+
+        return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+    }
+
+    depth(targetNode) {
+        const currentNode = this.root;
+        if (currentNode === null) return;
+
+        let depth = 0;
+        while (currentNode.key !== targetNode.key) {
+            if (currentNode.key < targetNode.key) {
+                currentNode = currentNode.left;
+            } else {
+                currentNode = currentNode.right
+            }
+            depth ++;
+        }
+        return depth;
+    }
+
+    isBalanced(node = this.root) {
+        if (node === null) return true;
+
+        const leftHeight = this.height(node.left);
+        const rightHeight = this.height(node.right);
+
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            return false;
+        }
+
+        return (this.isBalanced(node.left) && this.isBalanced(node.right));
+    }
+
+    rebalance() {
+        const sortedArray = Array.from(new Set(this.inorder()));
+        const balancedTree = new Tree(sortedArray);
+        return balancedTree;
+    }
+
+
+}
