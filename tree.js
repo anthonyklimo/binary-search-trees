@@ -1,6 +1,6 @@
 import Node from "./node";
 
-class Tree {
+export default class Tree {
     constructor(array) {
         const sortedArray = Array.from(new Set(array)).sort((a, b) => a - b);
         this.root = this.buildTree(sortedArray);
@@ -182,6 +182,4 @@ class Tree {
         const balancedTree = new Tree(sortedArray);
         return balancedTree;
     }
-
-
 }
